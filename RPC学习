@@ -1,0 +1,9 @@
+-----IPC-----
+Inter-Process Communication 进程间通信
+有几种形式：
+1、管道 pipe
+2、信号 signal
+3、报文 message
+4、共享内存 
+5、信号量 semaphore
+6、套接口 socket
