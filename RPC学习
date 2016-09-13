@@ -7,3 +7,12 @@ Inter-Process Communication 进程间通信
 4、共享内存 
 5、信号量 semaphore
 6、套接口 socket
+----IMC----
+机器间通信
+TCP UDP HTTP等方式
+----RPC----
+Remote Procedure Call Protocol 远程过程调用协议
+Thrift
+Finagle
+Dubbo
+----序列化-----
