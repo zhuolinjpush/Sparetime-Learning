@@ -1,0 +1,8 @@
+持续更新...
+客户端
+1、批量提交
+2、缓存所有的-ROOT-和.META.的地址
+3、多线程共用同个configuration
+4、使用SCAN方式，设置caching（行级）和batch（列级），减少RPC请求次数
+
+服务端
