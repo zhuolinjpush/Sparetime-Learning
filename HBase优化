@@ -1,8 +1,11 @@
 <h1>持续更新...</h1>
-客户端
-1、批量提交
-2、缓存所有的-ROOT-和.META.的地址
-3、多线程共用同个configuration
-4、使用SCAN方式，设置caching（行级）和batch（列级），减少RPC请求次数
+客户端：
+1、批量提交，put和put(list)
+2、缓存-ROOT-和所有.META.表
+3、多线程共用同个Configuration实例
+4、使用Scan, 设置caching(行级)和batch(列级)，减少RPC请求次数
+5、关闭写WAL日志
+6、使用协处理器，计算移到Region
+
 
 服务端
