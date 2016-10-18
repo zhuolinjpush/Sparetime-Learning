@@ -1,0 +1,13 @@
+1、使用java main 调用copymerge 
+16/10/18 14:06:43 ERROR user.CopyMergeHelper: hdfsCopyMerge error
+java.io.IOException: No FileSystem for scheme: hdfs
+	at org.apache.hadoop.fs.FileSystem.getFileSystemClass(FileSystem.java:2623)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2637)
++++++++++++++++++++++
+Path inputPath = new Path(input);
+Path outputPath = new Path(output);
+Configuration conf = new Configuration();
+conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem"); //关键
+boolean flag = FileUtil.copyMerge(inputPath.getFileSystem(conf), inputPath, 
+outputPath.getFileSystem(conf), outputPath, false, conf, null);
++++++++++++++++++++++
