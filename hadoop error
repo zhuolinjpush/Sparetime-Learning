@@ -11,3 +11,6 @@ conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem"); //关�
 boolean flag = FileUtil.copyMerge(inputPath.getFileSystem(conf), inputPath, 
 outputPath.getFileSystem(conf), outputPath, false, conf, null);
 +++++++++++++++++++++
+
+2、Job History Server 挂掉会导致oozie任务失败
+   解决方式是把server起来，并添加超时监控
