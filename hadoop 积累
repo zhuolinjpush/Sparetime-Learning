@@ -1,0 +1,2 @@
+hadoop distcp  集群间互拷，需hdfs-site.xml配置
+hadoop distcp OPTIONS [source_path...] <target_path>
