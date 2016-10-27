@@ -1,2 +1,3 @@
 hadoop distcp  集群间互拷，需hdfs-site.xml配置
 hadoop distcp OPTIONS [source_path...] <target_path>
+如果一个文件非常大，而且只有一行(比如mysql dump文件)，可以使用sed 找到共性，切割为多行，然后用hadoop处理成格式化数据
