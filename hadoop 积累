@@ -1,4 +1,19 @@
 hadoop distcp  集群间互拷，需hdfs-site.xml配置
 hadoop distcp OPTIONS [source_path...] <target_path>
+-----------------------------------------------------
 如果一个文件非常大，而且只有一行(比如mysql dump文件)，可以使用sed 找到共性，切割为多行，然后用hadoop处理成格式化数据
+-----------------------------------------------------
 hbase 迁移表数据 
+1、暂停表相关的业务，读写, 并flush 内存的数据 flush “test1”
+2、copy表结构，包括regions配置，自己写读取原表的源数据
+3、原来的表做major_compact
+4、disable 表
+5、在新集群新建目录，比如/tmp/bulkload
+6、在新集群创建表[包含了region信息]
+7、选择namenode[active 状态的节点] 比如   NameNode, nfjd-hbase01-node15 (Active)
+8、可能会遇到没有write权限，需要在/user下创建权限
+     sudo su - hdfs  然后 hadoop fs -mkdir /user/alex ; hadoop fs -chown zhuolin:users /user/alex  两个集群都需要
+     执行distcp hadoop distcp hdfs://nameservice-hbase1/hbase/data/default/test1 hdfs://localhost/tmp/bulkload
+9、然后修改权限 hdfs dfs -chown -R hbase:hbase /tmp/bulkload/
+10、执行 ./bulkload.sh
+------------------------------------------------------
