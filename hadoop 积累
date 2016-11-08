@@ -17,3 +17,9 @@ hbase 迁移表数据
 9、然后修改权限 hdfs dfs -chown -R hbase:hbase /tmp/bulkload/
 10、执行 ./bulkload.sh
 ------------------------------------------------------
+kylin 统计
+为了减少cuboid的数目，kylin将Dimension分成4中类型
+1、Normal，为最常见的类型，与所有其他的dimension组合构成cuboid。
+2、Mandatory，在每一次查询中都会用到dimension，
+3、Hierarchy，为带层级的dimension，比如说：省份->城市， 年->季度->月->周->日；以用于做drill down 
+4、Derived，指该dimensions与维表的primary key是一一对应关系，可以更有效地减少cuboid数量
