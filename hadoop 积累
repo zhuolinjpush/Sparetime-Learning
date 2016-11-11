@@ -23,3 +23,7 @@ kylin 统计
 2、Mandatory，在每一次查询中都会用到dimension，
 3、Hierarchy，为带层级的dimension，比如说：省份->城市， 年->季度->月->周->日；以用于做drill down 
 4、Derived，指该dimensions与维表的primary key是一一对应关系，可以更有效地减少cuboid数量
+------------------------------------------------------
+cloudera manager 修改NameNode Nameservice, 重启的时候两个NameNode 都是standby状态
+因为NameNode向zookeeper注册不上，可以登录zookeeper_client查看ls /hadoop-ha 看新的NameNode Nameservice有没有生成
+执行 sudo -u hdfs hdfs zkfc -formatZK 
