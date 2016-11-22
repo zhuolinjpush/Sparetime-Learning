@@ -27,3 +27,5 @@ kylin 统计
 cloudera manager 修改NameNode Nameservice, 重启的时候两个NameNode 都是standby状态
 因为NameNode向zookeeper注册不上，可以登录zookeeper_client查看ls /hadoop-ha 看新的NameNode Nameservice有没有生成
 执行 sudo -u hdfs hdfs zkfc -formatZK 
+------------------------------------------------------
+Reducer 的 Iterable<Text> values 只能遍历一次
