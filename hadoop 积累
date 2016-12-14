@@ -29,3 +29,17 @@ cloudera manager 修改NameNode Nameservice, 重启的时候两个NameNode 都�
 执行 sudo -u hdfs hdfs zkfc -formatZK 
 ------------------------------------------------------
 Reducer 的 Iterable<Text> values 只能遍历一次
+-----------------------------------------------
+卸载CDH5.7.1步骤：
+1、选择hosts，关掉hosts所有roles[一般顺序是HIVE、MR、hbase、hdfs、zookeeper,最后一个个删除依赖服务]
+2、然后操作Hosts Decommissioned，然后执行delete，依赖顺序hue,oozie,hive,hbase,hdfs,zookeeper
+3、然后disactive parcels
+4、delete cluster
+5、sudo service cloudera-scm-agent stop , sudo service cloudera-scm-server stop, sudo service cloudera-scm-server-db stop
+6、sudo rm -rf /usr/share/cmf/ /var/lib/cloudera-scm-* /var/cache/yum/x86_64/7/cloudera-manager/
+7、sudo rm -rf /var/lib/flume-ng/ /var/lib/hadoop-* /var/lib/oozie/ /var/lib/solr/ /var/lib/sqoop* /var/lib/hue /var/lib/zookeeper/ /var/lib/hbase/ /var/lib/hive/ /var/lib/impala/
+8、sudo rm -rf /var/log/zookeeper/ /var/log/cloudera-* /var/log/hbase /var/log/hadoop-*
+9、清理yum源 sudo yum remove 'cloudera-manager*' , sudo yum clean all
+10、卸载挂载 sudo umount cm_processes
+11、卸载mysql或者pg
+-------------------------------------------------
