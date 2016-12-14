@@ -36,10 +36,11 @@ Reducer 的 Iterable<Text> values 只能遍历一次
 3、然后disactive parcels
 4、delete cluster
 5、sudo service cloudera-scm-agent stop , sudo service cloudera-scm-server stop, sudo service cloudera-scm-server-db stop
-6、sudo rm -rf /usr/share/cmf/ /var/lib/cloudera-scm-* /var/cache/yum/x86_64/7/cloudera-manager/
-7、sudo rm -rf /var/lib/flume-ng/ /var/lib/hadoop-* /var/lib/oozie/ /var/lib/solr/ /var/lib/sqoop* /var/lib/hue /var/lib/zookeeper/ /var/lib/hbase/ /var/lib/hive/ /var/lib/impala/
-8、sudo rm -rf /var/log/zookeeper/ /var/log/cloudera-* /var/log/hbase /var/log/hadoop-*
+6、sudo rm -rf /usr/share/cmf/ /var/lib/cloudera* /var/cache/yum/x86_64/7/cloudera-manager/
+7、sudo rm -rf /var/lib/flume-ng/ /var/lib/hadoop* /var/lib/oozie/ /var/lib/solr/ /var/lib/sqoop* /var/lib/hue /var/lib/zookeeper/ /var/lib/hbase/ /var/lib/hive/ /var/lib/impala/ 
+8、sudo rm -rf /var/log/zookeeper /var/log/cloudera* /var/log/hbase /var/log/hadoop* /opt/cloudera /etc/hadoop/ /etc/hbase/ /etc/hive/ /etc/cloudera-scm-agent/
 9、清理yum源 sudo yum remove 'cloudera-manager*' , sudo yum clean all
 10、卸载挂载 sudo umount cm_processes
-11、卸载mysql或者pg
+11、卸载mysql或者pg  /usr/local/pgsql8.4/bin/pg_ctl -D /usr/local/pgsql8.4/data stop
+12、清空磁盘 sudo rm -rf /hdfs00/* /hdfs01/* /hdfs02/* /hdfs03/* /hdfs04/*
 -------------------------------------------------
