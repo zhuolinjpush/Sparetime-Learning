@@ -9,3 +9,9 @@
 
 
 服务端
+由于hbase写压力比较大，造成region server compaction size特别大，因此调整下列参数：
+hbase.hstore.compactionThreshold 10      --并发线程数
+hbase.hstore.blockingStoreFiles 30          
+hbase.hstore.compaction.max  20            --一次合并文件数上限
+ 
+Java Heap Size of HBase RegionServer in Bytes 20 GB
