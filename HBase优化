@@ -13,5 +13,4 @@
 hbase.hstore.compactionThreshold 10      --并发线程数
 hbase.hstore.blockingStoreFiles 30          
 hbase.hstore.compaction.max  20            --一次合并文件数上限
- 
 Java Heap Size of HBase RegionServer in Bytes 20 GB
