@@ -1,0 +1,5 @@
+%elasticsearch
+interpreter需要配置：elasticsearch.cluster.name、elasticsearch.host、elasticsearch.port、elasticsearch.result.size 需要注意的是端口不是http端口
+%elasticsearch
+get /mac_v1/t_mac/6f575b5bb3254a8d4be46a53d3845d18
+----------------------
