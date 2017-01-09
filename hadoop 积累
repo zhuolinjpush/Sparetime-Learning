@@ -44,3 +44,6 @@ Reducer 的 Iterable<Text> values 只能遍历一次
 11、卸载mysql或者pg  /usr/local/pgsql8.4/bin/pg_ctl -D /usr/local/pgsql8.4/data stop
 12、清空磁盘 sudo rm -rf /hdfs00/* /hdfs01/* /hdfs02/* /hdfs03/* /hdfs04/*
 -------------------------------------------------
+测试hdfs IO
+hadoop jar hadoop-mapreduce-client-jobclient-2.6.0.jar TestDFSIO -write -nrFiles 10 -size 50MB
+hadoop jar hadoop-mapreduce-client-jobclient-2.6.0.jar TestDFSIO -read -nrFiles 10 -size 50MB
