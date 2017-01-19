@@ -62,3 +62,4 @@ elif [[ -f /sys/kernel/mm/transparent_hugepage/enabled ]]; then
     echo never > /sys/kernel/mm/transparent_hugepage/defrag
 fi
 --------------------------------------------------------
+空间不够，可以设置目录副本数，hadoop dfs -setrep -w 2 -R /hbase/data/default/userprofile_imei，改成两个副本
