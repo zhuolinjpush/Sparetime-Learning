@@ -63,3 +63,18 @@ elif [[ -f /sys/kernel/mm/transparent_hugepage/enabled ]]; then
 fi
 --------------------------------------------------------
 空间不够，可以设置目录副本数，hadoop dfs -setrep -w 2 -R /hbase/data/default/userprofile_imei，改成两个副本
+----实时同步hbase----
+REPLICATION_SCOPE=>'1' 不需要disable table
+1、add_peer '6','nfjd-hbase01-node01.jpushoa.com,nfjd-hbase01-node02.jpushoa.com,nfjd-hbase01-node03.jpushoa.com:2181:/hbase'
+2、立即 disable_peer '6'
+3、 snapshot 'zl_test_tb', 'zl_test_tb_snapshot_6'
+4、拷贝snapshot: hbase org.apache.hadoop.hbase.snapshot.ExportSnapshot -snapshot zl_test_tb_snapshot_6 -copy-to hdfs://nfjd-hbase01-node09.jpushoa.com:8020/hbase -mappers 6 -bandwidth 100
+5、在目标集群创建表：create 'zl_test_tb',{NAME => 'A', VERSIONS => '10000',REPLICATION_SCOPE=>'1'}
+6、在目的集群修改权限和恢复snapshot:
+hadoop fs -chmod -R 777 /hbase/.hbase-snapshot/
+hadoop fs -chmod -R 777 /hbase/archive/data/default/zl_test_tb
+7、disable 'zl_test_tb' 然后 restore_snapshot 'zl_test_tb_snapshot_6', 然后enable 'zl_test_tb'
+8、enable_peer '6'
+
+注意：如果不停止oldWALs数据量会增长很快，需要remove_peer 
+http://stackoverflow.com/questions/28725364/hbase-oldwals-what-it-is-and-how-can-i-clean-it
