@@ -78,3 +78,6 @@ hadoop fs -chmod -R 777 /hbase/archive/data/default/zl_test_tb
 
 注意：如果不停止oldWALs数据量会增长很快，需要remove_peer 
 http://stackoverflow.com/questions/28725364/hbase-oldwals-what-it-is-and-how-can-i-clean-it
+---- hbase 处理 is not online region 和 某些key 不在start和end之间  -----
+hbase hbck -repair
+hbase hbck -repairHole
