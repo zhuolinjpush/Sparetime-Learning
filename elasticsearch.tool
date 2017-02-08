@@ -42,3 +42,19 @@ curl -XPOST http://localhost:19290/20170206/type_v1/_mapping -d '
         }
     }
 }'
+curl -XPOST http://172.16.202.26:19290/test_push_v3/type_v3/6784345 -d '{
+    "appkey":"345343",
+    "msg_id":3456465544322,
+    "itime":1480779658,
+    "msg_content":"阿里巴巴，特么的，有木有吸引力，中华奥爱你士大夫似的"
+}'
+
+//query
+curl -XPOST http://172.16.202.26:19290/test_push_v2,test_push_v3/_search -d '{
+"min_score":1.0,
+    "query":{
+        "match":{
+            "msg_content":"中华"
+        }
+    }
+}'
