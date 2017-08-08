@@ -1,0 +1,108 @@
+1、LDAP是什么，能够解决哪些问题，常见应用场景，跟MySQL区别
+LDAP ( Lightweight Directory Access Protocol )是一种轻量级目录访问协议，OpenLDAP是LDAP协议的开源实现
+
+实现账号统一集中管理
+权限控制管理
+密码控制管理
+主机控制管理
+同步机制管理
+TLS/SASL加密传输
+自定义schema
+
+应用平台集成账号管理：
+zabbix、jira、kylin、hadoop、hive、gitlab、自动化运维平台等
+
+是非关系型数据库，功能比较简单，主要功能：集中管理账号和为各种服务访问做后台认证以及用户数据权限管控
+
+2、LDAP 基本概念
+
+LDIF ( LDAP Interchange Format)文件用于 add/import/export/modify
+Schema 是LDAP的一个重要组成部分，类似于数据库的模式定义，LDAP 的Schema定义了LDAP目录所应遵循的结构和规则
+其中有4个重要元素：
+a、Attribute
+属性类型，定义名称，数据类型，单值还是多值以及匹配规则等；
+attributetype ( 2.5.4.20 NAME 'telephoneNumber'
+        DESC 'RFC2256: Telephone Number'
+        EQUALITY telephoneNumberMatch
+        SUBSTR telephoneNumberSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.50{32} )
+b、ObjectClass
+对象类别，这个类别会被不同的目录用到，说明了该目录应该的属性，由多个AttributeType属性类型组成；
+objectclass ( 2.5.6.6 NAME 'person'
+        DESC 'RFC2256: a person'
+        SUP top STRUCTURAL
+        MUST ( sn $ cn )
+        MAY ( userPassword $ telephoneNumber $ seeAlso $ description ) )
+c、Syntax
+类似语法，LDAP中用到的数据类型和数据约束
+d、Matching Rules
+指定某属性的匹配规则，实际上就是定义一个特殊的Syntax的别名，让LDAP服务器可以识别，并对定义的属性进行匹配。
+
+Entry 由一个或多个ObjectClass组成
+
+常用的一些属性类型和对象类：
+dn    Distinguished Name
+cn    Common Name
+ou    Organisational Unit Name
+dc    Domain Component
+uid   User Identification
+比如极光的rootdn: dc=jpushoa,dc=com
+
+3、LDAP 常用命令
+ldap 开头的命令是客户端工具，ldapadd      ldapcompare  ldapdelete    ldapmodify   ldapmodrdn   ldappasswd   ldapsearch   ldapurl      ldapwhoami
+slap 开头的命令是服务端工具，slapacl   slurpd    slapadd     slapauth    slapcat     slapd       slapdn      slapindex   slappasswd  slapschema  slaptest  
+
+ldapadd -x -D "cn=admin,dc=k,dc=com" -H "ldap://172.16.100.186:389" -f tmp.ldif -w 123456
+ldappasswd -x -D "cn=admin,dc=k,dc=com" -H "ldap://172.16.100.186:389" -w 123456 "uid=test2,ou=People,dc=k,dc=com" -s 123456
+ldapsearch -x -D "cn=admin,dc=k,dc=com" -H ldap://172.16.100.186:389 -b "dc=k,dc=com" -w 123456
+slappasswd -h {MD5}     有几种加密方式：{CRYPT}, {MD5}, {SMD5}, {SSHA}, and {SHA}
+slapcat -f /etc/openldap/slapd.conf > backup.ldif 备份
+
+4、简单介绍应用场景
+kylin - ldap:
+ldap.server=ldap://172.16.100.123:389
+ldap.username=cn=admin,dc=k,dc=com
+ldap.password=6EbgRNaRLjBRsgAy67VM0Q==
+
+# LDAP user account directory;
+ldap.user.searchBase=ou=People,dc=k,dc=com
+ldap.user.searchPattern=(&(uid={0}))
+ldap.user.groupSearchBase=ou=Group,dc=k,dc=com
+
+jira - ldap:
+    enabled: true
+    host: '172.16.100.186'
+    port: 389
+    uid: 'uid'
+    method: 'plain'
+    base: 'dc=k,dc=com'
+    encryption: 'plain'
+    bind_dn: 'cn=gitlab,ou=People,dc=k,dc=com'
+    password: '6EbgRNaRLjBRsgAy67VM0Q=='
+    user_filter: ''
+
+centos7 - ldap 
+Login start  -->  username -->  /etc/nsswitch.conf  --> /etc/nslcd.conf--> /etc/pam.d/ --> Login END
+LDAP 接管 Linux 权限管理 /etc/sysconfig/authconfig
+USELDAP=yes
+USELDAPAUTH=yes
+
+/etc/nsswitch.conf 名称转换服务
+passwd:     files sss ldap
+shadow:     files sss ldap
+group:      files sss ldap
+sudoers:    ldap
+
+/etc/openldap/ldap.conf 配置
+SASL_NOCANON    on
+URI ldaps://ldap01.jpushoa.com ldaps://ldap02.jpushoa.com
+BASE dc=jpushoa,dc=com
+TLS_CACERTDIR /etc/openldap/cacerts
+TLS_CACERT /etc/openldap/cacerts/cacert.pem
+TLS_CERT /etc/openldap/cacerts/client.crt
+TLS_KEY /etc/openldap/cacerts/client.key
+TLS_REQCERT demand
+
+/etc/pam.d/system-auth 文件是CentOS系统认证PAM文件
+/etc/pam.d/password-auth 
+account     [default=bad success=ok user_unknown=ignore] pam_ldap.so 
