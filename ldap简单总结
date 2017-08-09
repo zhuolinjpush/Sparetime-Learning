@@ -106,3 +106,23 @@ TLS_REQCERT demand
 /etc/pam.d/system-auth 文件是CentOS系统认证PAM文件
 /etc/pam.d/password-auth 
 account     [default=bad success=ok user_unknown=ignore] pam_ldap.so 
+
+
+Attribute Identifier	Attribute Value Description
+NUMERICOID (mandatory)	Unique object identifier (OID)
+NAME	                Attribute's name
+DESC	                Attribute's description
+OBSOLETE	        "true" if obsolete; "false" or absent otherwise
+SUP	                Name of superior attribute type from which this attribute's type is derived
+EQUALITY	        Name or OID of the matching rule if equality matching is allowed; absent otherwise
+ORDERING	        Name or OID of the matching rule if ordering matching is allowed; absent otherwise
+SUBSTRING /   SUBSTR	Name or OID of the matching rule if substring matching is allowed; absent otherwise
+SYNTAX	                Numeric OID of the syntax of values of this type
+SINGLE-VALUE	        "true" if the attribute not multivalued; "false" or absent otherwise.
+COLLECTIVE	        "true" if the attribute is collective; "false" or absent otherwise.
+NO-USER-MODIFICATION	"true" if the attribute is not user-modifiable; "false" or absent otherwise.
+USAGE	                 Description of attribute usage
+<table>
+<tr>123</tr>
+<td>234</td>
+</table>
