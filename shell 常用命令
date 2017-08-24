@@ -1,0 +1,2 @@
+1、列出目录下所有jar并用“:”分隔
+push_spark_jars=`find -L /opt/push/jars -name '*.jar' ! -name '*doc*' ! -name '*test*' ! -name '*sources*' ''-printf '%p:' | sed 's/:$//'`
