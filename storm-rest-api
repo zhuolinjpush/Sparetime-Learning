@@ -1,0 +1,7 @@
+https://github.com/apache/storm/blob/master/docs/STORM-UI-REST-API.md
+
+获取配置文件
+http://172.16.98.133:11080/api/v1/cluster/configuration
+
+获取当前的汇总数据
+http://172.16.98.133:11080/api/v1/cluster/summary
